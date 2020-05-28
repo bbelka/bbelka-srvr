@@ -11,7 +11,7 @@ router.post("/", function (req, res) {
             process.env.GOOGLE_CLIENT_ID,
             process.env.GOOGLE_CLIENT_SECRET,
             // "https://localhost:3000/contact"
-            "https://bbelka.herokuapp.com"
+            "https://bbelka.herokuapp.com/contact"
         );
 
         OAuth2Client.setCredentials({
