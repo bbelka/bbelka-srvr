@@ -1,5 +1,4 @@
 const router = require('express').Router();
-// const transporter = require('../../config/mailer')
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 const OAuth2 = google.auth.OAuth2;
@@ -11,14 +10,15 @@ router.post("/", function (req, res) {
         const OAuth2Client = new OAuth2(
             process.env.GOOGLE_CLIENT_ID,
             process.env.GOOGLE_CLIENT_SECRET,
-            "https://localhost:3000/contact"
+            // "https://localhost:3000/contact"
+            "https://bbelka.herokuapp.com"
         );
 
         OAuth2Client.setCredentials({
             refresh_token: process.env.GOOGLE_REFRESH_TOKEN
         });
-        const accessToken = OAuth2Client.getAccessToken()
-
+        const accessToken = OAuth2Client.getAccessToken();
+        
         const transport = {
             service: 'gmail',
             auth: {
@@ -32,25 +32,10 @@ router.post("/", function (req, res) {
         }
 
         const transporter = nodemailer.createTransport(transport);
-
-        // transporter.verify((error, success) => {
-        //     if (error) {
-        //         console.log('verify error',error);
-
-        //     } else {
-        //         console.log('Mailer ready');
-
-        //     }
-        // });
-
         const name = req.body.name;
         const email = req.body.email;
         const message = req.body.message;
         const content = `name: ${name} \n email: ${email} \n message : ${message} `;
-        console.log(name);
-        console.log(email);
-        console.log(message);
-        console.log(content);
 
         let mail = {
             from: name,
