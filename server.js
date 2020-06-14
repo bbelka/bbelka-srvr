@@ -22,8 +22,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(
     cors({
-        // origin: ["http://localhost:3000"],
-        origin: ["https://bbelka.herokuapp.com"],
+        origin: ["http://localhost:3000"],
+        // origin: ["https://bbelka.herokuapp.com"],
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true //allow session cookie to pass through
     }));
