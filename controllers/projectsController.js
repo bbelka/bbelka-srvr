@@ -16,9 +16,15 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     create: function (req, res) {
+
         const project = {
-            manager: req.user._id,
-            name: req.body.name
+            name: req.body.name,
+            description: req.body.description,
+            technical: req.body.technical,
+            contribution: req.body.contribution,
+            technologies: req.body.technologies,
+            mainImage: req.body.mainImage,
+            screenshots: req.body.screenshots
         }
         console.log(project)
 

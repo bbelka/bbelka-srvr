@@ -17,7 +17,7 @@ const ProjectSchema = new Schema(
             required: "tecnical description is required"
         },
         contribution: {
-            type: string,
+            type: String,
             required: "delineation of contribution is required"
         },
         technologies: {
@@ -29,6 +29,19 @@ const ProjectSchema = new Schema(
             trim: true,
             required: "main image is required"
         },
-        screenshots: Array
-    }
-)
+        urls: {
+            type: Object,
+            properties: {
+                deployed: {
+                    deployed: String,
+                    gitHub: String,
+                    server:String
+                }
+            },
+            screenshots: Array
+        }
+);
+
+const Project = mongoose.model("Project", ProjectSchema);
+
+module.exports = Project;
