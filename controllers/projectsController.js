@@ -24,7 +24,8 @@ module.exports = {
             contribution: req.body.contribution,
             technologies: req.body.technologies,
             mainImage: req.body.mainImage,
-            screenshots: req.body.screenshots
+            screenshots: req.body.screenshots,
+            urls: req.body.urls
         }
         console.log(project)
 
