@@ -29,17 +29,15 @@ const ProjectSchema = new Schema(
             trim: true,
             required: "main image is required"
         },
-        urls: {
-            type: Object,
-            properties: {
-                deployed: {
-                    deployed: String,
-                    gitHub: String,
-                    server:String
-                }
-            },
-            screenshots: Array
-        }
+        urls:[
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Url"
+            }
+        ],
+        screenshots: Array
+
+    }
 );
 
 const Project = mongoose.model("Project", ProjectSchema);
