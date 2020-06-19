@@ -11,7 +11,7 @@ module.exports = {
     findById: function (req, res) {
         db.Project
             .findOne({ _id: req.params.id })
-            .populate("posts")
+            .populate("urls")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
