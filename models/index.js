@@ -1,4 +1,5 @@
 module.exports={
     Project: require("./Project"),
-    Url:require("./Url")
+    Url:require("./Url"),
+    User:require("./User")
 }

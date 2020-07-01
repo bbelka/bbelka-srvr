@@ -4,7 +4,8 @@ module.exports = {
     create: async function (req, res) {
         try {
             const url = await db.Url.create(req.body);
-            const project = await db.Project.findOneAndUpdate({ _id: req.body.ProjectId }, { $push: { urls: url._id } }, { new: true });
+            const project = await db.Project.findOneAndUpdate({ _id: req.body.projectId }, { $push: { urls: url._id } }, { new: true });
+            res.json(project)
         } catch (err) {
             res.json(err)
         }

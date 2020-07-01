@@ -6,7 +6,7 @@ router.route("/")
     // .get(urlsController.findAll)
     .post(urlsController.create);
 
-//url rouges by ID: '/api/url/:id'
+//url routes by ID: '/api/url/:id'
 router.route("/:id")
     .get(urlsController.findById)
     .put(urlsController.update)
