@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const UrlSchema = new Schema(
     {
         name: String,
-        url: String
+        url: String,
+        projectId:String
     }
 )
 

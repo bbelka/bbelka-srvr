@@ -4,6 +4,7 @@ module.exports = {
     findAll: function (req, res) {
         db.Project
             .find(req.query)
+            .populate("urls")
             .sort({ date: -1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
@@ -40,11 +41,16 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     remove: async function (req, res) {
-        await db.User.updateMany({}, { $pull: { projects: req.params.id } }, { multi: true })
-
         db.Project
             .deleteOne({ _id: req.params.id })
-            .then(dbModel => req.json(dbModel))
+            .then(dbModel => {
+                dbModel.urls.map(url => {
+                    db.Url
+                        .findOneAndDelete({ _id: url })
+                        .catch(err => res.json(err))
+                })
+                req.json(dbModel)
+            })
             .catch(err => res.json(err))
     }
 }
