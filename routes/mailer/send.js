@@ -1,33 +1,44 @@
+require('dotenv').config();
 const router = require('express').Router();
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 const OAuth2 = google.auth.OAuth2;
-require('dotenv').config();
 
 
-router.post("/", function (req, res) {
+router.post("/", async function (req, res) {
     try {
         const OAuth2Client = new OAuth2(
             process.env.GOOGLE_CLIENT_ID,
             process.env.GOOGLE_CLIENT_SECRET,
-            // "https://localhost:3000/contact"
-            "https://bbelka.herokuapp.com/contact"
+            "https://localhost:3000/contact"
+            // "https://bbelka.herokuapp.com/contact"
         );
 
         OAuth2Client.setCredentials({
             refresh_token: process.env.GOOGLE_REFRESH_TOKEN
         });
-        const accessToken = OAuth2Client.getAccessToken();
-        
+
+        const accessToken = await new Promise((resolve, reject) => {
+
+            OAuth2Client.getAccessToken((err, token) => {
+
+                if (err) {
+                    reject("failed to create access token");
+                }
+                resolve(token);
+            })
+        });
+
         const transport = {
             service: 'gmail',
             auth: {
                 type: 'OAuth2',
-                user: "bbelka.portfolio@gmail.com",
+                user: process.env.GOOGLE_ORIGINATION_ADDRESS,
+                accessToken:accessToken,
                 clientId: process.env.GOOGLE_CLIENT_ID,
                 clientSecret: process.env.GOOGLE_CLIENT_SECRET,
                 refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-                accessToken: accessToken
+                
             }
         }
 
@@ -39,7 +50,7 @@ router.post("/", function (req, res) {
 
         let mail = {
             from: name,
-            to: 'bbelka@gmail.com',
+            to: process.env.GOOGLE_DESTINATION_ADDRESS,
             subject: 'Contact from portfolio',
             text: content
         };
