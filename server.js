@@ -1,14 +1,16 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
-const path = require('path');
+// const path = require('path');
 const routes = require('./routes');
 const logger = require('morgan');
 const mongoose = require("mongoose");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
+
 require("./config/passport");
 require('connect-mongo')(session);
+require("dotenv").config;
 
 //Sets up the Express app
 const app = express();
@@ -30,7 +32,9 @@ app.use(cookieSession({
 app.use(passport.initialize());
 
 //deserialize cookies
-app.use(passport.session());
+// app.use(passport.session());
+
+passport.use()
 
 //set up cors to allow client requrests
 app.use(
