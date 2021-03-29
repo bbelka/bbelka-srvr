@@ -1,4 +1,4 @@
-const Validator = requrie("fastest-validator");
+const Validator = require("fastest-validator");
 const { ObjectID } = require("mongodb");
 
 const newValidator = new Validator({
@@ -14,4 +14,4 @@ const validatorFactory = schema => newValidator.compile({
     ...schema
 });
 
-module.export = validatorFactory;
+module.exports = validatorFactory;

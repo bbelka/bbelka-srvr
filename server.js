@@ -34,7 +34,7 @@ app.use(passport.initialize());
 //deserialize cookies
 // app.use(passport.session());
 
-passport.use()
+// passport.use('jwt')
 
 //set up cors to allow client requrests
 app.use(
@@ -47,6 +47,8 @@ app.use(
 
 
 app.use(routes);
+
+// emitter.setMaxListeners(20)
 
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/bbelka",
