@@ -6,11 +6,12 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const routes = require('./routes');
 
+require('dotenv').config();
 require('./config/passport');
 require('connect-mongo')(session);
 
 const app = express();
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT 
 
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
@@ -27,8 +28,7 @@ app.use(passport.session());
 
 app.use(
     cors({
-        // origin: ["http://localhost:3000"],
-        origin: ["https://bbelka.herokuapp.com"],
+        origin:[`${process.env.ORIGIN}`],
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
         credentials: true //allow session cookie to pass through
     }));
